@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eaf0ff">
+  <meta name="description" content="Nemu / ねむ — a little cat, a universe of curiosity. Languages, games, music, ACG and creative projects.">
+  <meta property="og:title" content="Nemu's Sekai · Nevaline Saelina">
+  <meta property="og:description" content="我喜歡可愛的東西，也喜歡很大的問題。">
+  <meta property="og:type" content="website">
+  <title>Nemu's Sekai · Nevaline Saelina</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='82'%3E🎀%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #263658;
+      --muted: #657393;
+      --paper: #fbfcff;
+      --line: rgba(83, 105, 158, .14);
+      --blue: #dce8ff;
+      --pink: #ffe4f0;
+      --lavender: #eee5ff;
+      --mint: #e2f6ec;
+      --shadow: 0 18px 55px rgba(66, 83, 133, .11);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 12% 4%, rgba(220,232,255,.78), transparent 33rem),
+        radial-gradient(ellipse at 94% 24%, rgba(255,228,240,.68), transparent 30rem),
+        var(--paper);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Noto Sans TC", "Noto Sans JP", "Noto Sans", sans-serif;
+      line-height: 1.7;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button, select { font: inherit; }
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline: 3px solid #8a9fe8; outline-offset: 4px;
+    }
+    .skip-link {
+      position: absolute; left: 12px; top: -60px; z-index: 100;
+      padding: 10px 14px; background: white; border-radius: 12px;
+    }
+    .skip-link:focus { top: 12px; }
+    .site-header {
+      width: min(1120px, calc(100% - 32px)); margin: 0 auto;
+      padding: 18px 0; display: flex; align-items: center;
+      justify-content: space-between; gap: 16px;
+    }
+    .brand { text-decoration: none; display: flex; align-items: center; gap: 11px; min-width: 0; }
+    .brand-mark {
+      display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 auto;
+      border: 1px solid rgba(255,255,255,.9); border-radius: 16px;
+      background: linear-gradient(145deg, #fff, #e5eaff 58%, #ffe7f1);
+      box-shadow: 0 8px 24px rgba(99, 114, 174, .13); font-size: 22px;
+    }
+    .brand-name { display: block; font-weight: 850; letter-spacing: -.035em; line-height: 1.2; }
+    .brand-sub { display: block; color: var(--muted); font-size: .76rem; margin-top: 3px; }
+    .header-tools { display: flex; align-items: center; gap: 10px; }
+    .language-select {
+      max-width: 100%; border: 1px solid var(--line); background: rgba(255,255,255,.82);
+      color: var(--ink); border-radius: 999px; padding: 10px 13px; cursor: pointer;
+    }
+    .menu-toggle {
+      display: none; border: 1px solid var(--line); background: white;
+      border-radius: 13px; padding: 9px 12px; color: var(--ink); cursor: pointer;
+    }
+    .nav {
+      width: min(1120px, calc(100% - 32px)); margin: 0 auto 14px;
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+      padding: 8px; border: 1px solid rgba(255,255,255,.9);
+      background: rgba(255,255,255,.66); backdrop-filter: blur(14px);
+      border-radius: 18px;
+    }
+    .nav a {
+      padding: 8px 13px; text-decoration: none; border-radius: 12px;
+      color: #596888; font-size: .92rem; transition: background .2s, color .2s;
+    }
+    .nav a:hover { background: #eef2ff; color: #263658; }
+    main { overflow: clip; }
+    .hero {
+      width: min(1120px, calc(100% - 32px)); margin: 0 auto;
+      min-height: 420px; padding: clamp(28px, 6vw, 68px);
+      display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(220px, .75fr);
+      align-items: center; gap: clamp(22px, 5vw, 64px);
+      position: relative; isolation: isolate; overflow: hidden;
+      border-radius: 34px; border: 1px solid white;
+      background: linear-gradient(125deg, #e4edff 0%, #f6f2ff 50%, #ffe9f3 100%);
+      box-shadow: var(--shadow);
+    }
+    .hero::before, .hero::after {
+      content: ""; position: absolute; border-radius: 50%; z-index: -1; pointer-events: none;
+    }
+    .hero::before { width: 300px; height: 300px; right: -70px; top: -100px; background: rgba(255,255,255,.42); }
+    .hero::after { width: 210px; height: 210px; left: 42%; bottom: -150px; background: rgba(202,218,255,.5); }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 11px;
+      background: rgba(255,255,255,.68); border: 1px solid rgba(255,255,255,.9);
+      color: #6878a5; border-radius: 999px; font-size: .78rem; font-weight: 750;
+      letter-spacing: .08em; text-transform: uppercase;
+    }
+    h1 { font-size: clamp(2.65rem, 7vw, 5.6rem); line-height: .99; letter-spacing: -.065em; margin: 20px 0 12px; }
+    .hero-name { display: block; font-size: .42em; letter-spacing: -.025em; color: #6577a5; margin-top: 14px; }
+    .hero-copy { max-width: 590px; color: #526384; font-size: clamp(1rem, 2vw, 1.15rem); margin: 20px 0 0; }
+    .hero-copy strong { color: #384d7a; }
+    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 27px; }
+    .button {
+      display: inline-flex; justify-content: center; align-items: center; gap: 8px;
+      padding: 12px 17px; border-radius: 14px; text-decoration: none; font-weight: 750;
+      border: 1px solid transparent; transition: transform .18s, box-shadow .18s;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: white; background: #536ba7; box-shadow: 0 8px 20px rgba(83,107,167,.23); }
+    .button-secondary { background: rgba(255,255,255,.75); border-color: white; color: #455981; }
+    .hero-art { min-height: 240px; display: grid; place-items: center; position: relative; }
+    .orb {
+      width: min(255px, 72vw); aspect-ratio: 1; border-radius: 46% 54% 55% 45%;
+      display: grid; place-items: center; position: relative; transform: rotate(-7deg);
+      background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(218,229,255,.8) 52%, rgba(255,225,240,.9));
+      border: 1px solid rgba(255,255,255,.95); box-shadow: 0 22px 55px rgba(103,119,174,.2);
+    }
+    .orb::before, .orb::after { content: "✦"; position: absolute; color: #8b9ed2; font-size: 25px; }
+    .orb::before { top: 18%; right: 12%; }
+    .orb::after { bottom: 18%; left: 12%; font-size: 18px; }
+    .orb-emoji { font-size: clamp(4.4rem, 9vw, 7.3rem); filter: drop-shadow(0 10px 12px rgba(103,119,174,.16)); transform: rotate(7deg); }
+    .float-note { position: absolute; padding: 9px 13px; background: rgba(255,255,255,.84); border: 1px solid white; border-radius: 15px; color: #64739a; font-size: .82rem; box-shadow: 0 10px 25px rgba(74,88,136,.09); }
+    .float-one { top: 12%; left: 0; transform: rotate(-7deg); }
+    .float-two { right: 0; bottom: 13%; transform: rotate(5deg); }
+    .section { width: min(1120px, calc(100% - 32px)); margin: clamp(52px, 8vw, 92px) auto 0; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 22px; }
+    .section-kicker { color: #8793b0; font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -.045em; line-height: 1.15; margin: 5px 0 0; }
+    .section-desc { max-width: 480px; color: var(--muted); margin: 0; font-size: .96rem; }
+    .about-panel {
+      padding: clamp(22px, 4vw, 36px); border-radius: var(--radius);
+      background: rgba(255,255,255,.78); border: 1px solid white; box-shadow: 0 12px 40px rgba(66,83,133,.06);
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 25px;
+    }
+    .about-panel p { color: var(--muted); margin: 0; max-width: 750px; }
+    .sparkle-stamp { width: 74px; height: 74px; display: grid; place-items: center; border-radius: 25px; background: var(--pink); font-size: 2rem; transform: rotate(5deg); }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+    .tag { border: 1px solid var(--line); border-radius: 999px; padding: 5px 10px; font-size: .82rem; color: #657393; background: #fff; }
+    .interest-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .interest-card {
+      --accent: #6478ae; --tint: #e9efff;
+      min-height: 230px; padding: clamp(20px, 3vw, 30px); border-radius: var(--radius);
+      background: linear-gradient(145deg, var(--tint), rgba(255,255,255,.94) 80%);
+      border: 1px solid white; box-shadow: 0 12px 35px rgba(66,83,133,.055);
+      position: relative; overflow: hidden; transition: transform .2s, box-shadow .2s;
+    }
+    .interest-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .interest-card::after { content: attr(data-symbol); position: absolute; right: 18px; top: 12px; font-size: 4rem; opacity: .14; transform: rotate(10deg); pointer-events: none; }
+    .interest-card .card-icon { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 15px; background: rgba(255,255,255,.8); color: var(--accent); font-size: 1.35rem; }
+    .interest-card h3 { font-size: 1.28rem; margin: 17px 0 5px; letter-spacing: -.025em; }
+    .interest-card p { color: #64718e; margin: 0; max-width: 550px; }
+    .card-items { color: var(--accent); font-size: .87rem; font-weight: 700; margin-top: 14px; }
+    .languages-card { --accent: #8062ad; --tint: #eee5ff; }
+    .games-card { --accent: #347ba7; --tint: #dff3ff; }
+    .music-card { --accent: #b34f80; --tint: #ffe4ef; }
+    .creative-card { --accent: #46845a; --tint: #e2f6e8; }
+    .culture-card { --accent: #a36b35; --tint: #fff0d9; }
+    .anime-card { --accent: #6373b2; --tint: #e9eaff; }
+    .subsection { margin-top: 30px; padding: clamp(20px, 4vw, 30px); border: 1px solid white; border-radius: var(--radius); background: rgba(255,255,255,.7); }
+    .subsection h3 { margin: 0 0 12px; font-size: 1.2rem; }
+    .chip-list { display: flex; flex-wrap: wrap; gap: 9px; }
+    .chip { display: inline-flex; align-items: center; gap: 7px; border-radius: 12px; padding: 8px 12px; background: #f3f5ff; color: #53648a; border: 1px solid #e9edff; font-size: .9rem; }
+    .music-panel { display: grid; grid-template-columns: .85fr 1.15fr; gap: 22px; }
+    .music-feature { border-radius: var(--radius); padding: 26px; color: #fff; background: linear-gradient(145deg, #6679b7, #8d83c9 55%, #c28db7); min-height: 230px; display: flex; flex-direction: column; justify-content: space-between; }
+    .music-feature .big-note { font-size: 3.5rem; line-height: 1; }
+    .music-feature h3 { font-size: 1.55rem; margin: 12px 0 3px; }
+    .music-feature p { margin: 0; color: rgba(255,255,255,.83); }
+    .music-list { display: grid; gap: 10px; }
+    .music-row { display: flex; align-items: center; gap: 13px; padding: 14px; background: white; border: 1px solid var(--line); border-radius: 16px; }
+    .music-row .music-emoji { width: 42px; height: 42px; display: grid; place-items: center; background: #fff0f6; border-radius: 13px; font-size: 1.2rem; flex: 0 0 auto; }
+    .music-row strong { display: block; }
+    .music-row span { color: var(--muted); font-size: .86rem; }
+    .quote-panel { padding: clamp(26px, 5vw, 48px); border-radius: 30px; text-align: center; background: linear-gradient(130deg, #f0eaff, #e4efff 55%, #fff0f6); border: 1px solid white; }
+    .quote-mark { font-size: 2rem; color: #9a87cc; }
+    blockquote { margin: 8px auto; max-width: 780px; font-size: clamp(1.35rem, 3.5vw, 2.15rem); font-weight: 800; letter-spacing: -.035em; line-height: 1.4; }
+    .quote-caption { color: #6c7898; }
+    .site-footer { width: min(1120px, calc(100% - 32px)); margin: 70px auto 0; padding: 27px 0 36px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; align-items: center; color: var(--muted); font-size: .88rem; }
+    .footer-links { display: flex; gap: 14px; flex-wrap: wrap; }
+    .footer-links a { text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+    .back-top { border: 1px solid var(--line); border-radius: 12px; padding: 8px 11px; background: white; text-decoration: none; white-space: nowrap; }
+    .reveal { animation: rise-in .65s both; }
+    @keyframes rise-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+    @media (max-width: 760px) {
+      .site-header { align-items: flex-start; }
+      .brand-sub { max-width: 180px; }
+      .header-tools { gap: 7px; }
+      .language-select { max-width: 145px; padding: 9px 10px; font-size: .88rem; }
+      .menu-toggle { display: inline-flex; }
+      .nav { display: none; margin-top: 0; }
+      .nav.is-open { display: flex; }
+      .nav a { flex: 1 1 42%; text-align: center; }
+      .hero { grid-template-columns: 1fr; padding: 30px 24px 22px; gap: 8px; min-height: auto; }
+      .hero-art { min-height: 220px; }
+      .orb { width: 190px; }
+      .float-one { left: 8%; }
+      .float-two { right: 8%; }
+      .section-heading { display: block; }
+      .section-desc { margin-top: 10px; }
+      .about-panel { grid-template-columns: 1fr; }
+      .sparkle-stamp { display: none; }
+      .interest-grid, .music-panel { grid-template-columns: 1fr; }
+      .interest-card { min-height: 205px; }
+      .site-footer { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 390px) {
+      .site-header { width: calc(100% - 22px); }
+      .brand-mark { width: 38px; height: 38px; border-radius: 13px; }
+      .brand-name { font-size: .92rem; }
+      .brand-sub { font-size: .68rem; max-width: 132px; }
+      .language-select { max-width: 118px; font-size: .8rem; }
+      .hero, .section, .nav, .site-footer { width: calc(100% - 22px); }
+      .hero { border-radius: 25px; }
+      .hero-actions .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">跳到主要內容</a>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="Nemu's Sekai home">
+      <span class="brand-mark" aria-hidden="true">🎀</span>
+      <span>
+        <span class="brand-name">Nemu's Sekai</span>
+        <span class="brand-sub">Nevaline Saelina · ねむ</span>
+      </span>
+    </a>
+    <div class="header-tools">
+      <label class="visually-hidden" for="language-select" data-i18n="languageLabel">選擇語言</label>
+      <select class="language-select" id="language-select" aria-label="Language">
+        <option value="zh-Hant">繁體中文</option>
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+      </select>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-i18n="menu">選單</button>
+    </div>
+  </header>
+
+  <nav class="nav" id="site-nav" aria-label="Main navigation">
+    <a href="#about" data-i18n="navAbout">關於我</a>
+    <a href="#interests" data-i18n="navInterests">興趣宇宙</a>
+    <a href="#games" data-i18n="navGames">遊戲</a>
+    <a href="#music" data-i18n="navMusic">音樂</a>
+    <a href="#creative" data-i18n="navCreative">創作</a>
+    <a href="#quote" data-i18n="navQuote">我的信念</a>
+  </nav>
+
+  <main id="main">
+    <section class="hero reveal" aria-labelledby="hero-title">
+      <div class="hero-text">
+        <span class="eyebrow" data-i18n="eyebrow">✦ 一個小小的宇宙</span>
+        <h1 id="hero-title">Nemu<span class="hero-name">Nevaline Saelina · ねむ</span></h1>
+        <p class="hero-copy" data-i18n="heroCopy">我喜歡可愛的東西，也喜歡很大的問題。<strong>語言、音樂、遊戲與世界</strong>，都是我探索宇宙的入口。</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#interests" data-i18n="exploreButton">探索我的世界 ↓</a>
+          <a class="button button-secondary" href="#games" data-i18n="gamesButton">進入遊戲宇宙 ✧</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="float-note float-one" data-i18n="floatOne">soft dreams ✧</span>
+        <div class="orb"><span class="orb-emoji">🎀</span></div>
+        <span class="float-note float-two" data-i18n="floatTwo">喵 ฅ(˶ᵔ ᵕ ᵔ˶)ฅ</span>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker" data-i18n="aboutKicker">A LITTLE INTRODUCTION</div>
+          <h2 data-i18n="aboutTitle">關於這個宇宙</h2>
+        </div>
+        <p class="section-desc" data-i18n="aboutDesc">一個持續更新的小小角落，收集好奇心、喜歡的事物和正在成長的想法。</p>
+      </div>
+      <div class="about-panel">
+        <div>
+          <p data-i18n="aboutText">嗨，我是 Nemu / ねむ，也叫 Nevaline Saelina。這裡收藏我喜歡的語言、文化、ACG、遊戲、音樂與創作。世界很大，我想用自己的步調慢慢探索，並把途中遇見的星光放進這個小小的網頁。</p>
+          <div class="tag-row">
+            <span class="tag" data-i18n="tagLanguages">多語言</span>
+            <span class="tag" data-i18n="tagGames">遊戲與音遊</span>
+            <span class="tag" data-i18n="tagMusic">音樂</span>
+            <span class="tag" data-i18n="tagCuriosity">好奇心</span>
+          </div>
+        </div>
+        <div class="sparkle-stamp" aria-hidden="true">✧</div>
+      </div>
+    </section>
+
+    <section class="section" id="interests">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker" data-i18n="interestsKicker">MY LITTLE GALAXIES</div>
+          <h2 data-i18n="interestsTitle">興趣宇宙</h2>
+        </div>
+        <p class="section-desc" data-i18n="interestsDesc">每一種興趣都是一扇門，通往不同的世界。</p>
+      </div>
+      <div class="interest-grid">
+        <article class="interest-card languages-card" data-symbol="🌐">
+          <div class="card-icon" aria-hidden="true">🌐</div>
+          <h3 data-i18n="languagesTitle">語言與文化</h3>
+          <p data-i18n="languagesText">喜歡跨語言探索、不同文化、歷史、地理與哲學，也享受同一個想法在不同語言裡呈現出的細微差異。</p>
+          <div class="card-items" data-i18n="languagesItems">Language · Culture · History · Geography</div>
+        </article>
+        <article class="interest-card games-card" id="games" data-symbol="🎮">
+          <div class="card-icon" aria-hidden="true">🎮</div>
+          <h3 data-i18n="gamesTitle">遊戲宇宙</h3>
+          <p data-i18n="gamesText">從節奏遊戲到開放世界，喜歡探索玩法、世界觀和能讓人投入其中的故事。</p>
+          <div class="card-items" data-i18n="gamesItems">maimai DX · Project SEKAI · Blue Archive</div>
+        </article>
+        <article class="interest-card music-card" id="music" data-symbol="🎧">
+          <div class="card-icon" aria-hidden="true">🎧</div>
+          <h3 data-i18n="musicTitle">音樂與節奏</h3>
+          <p data-i18n="musicText">初音未來、Vocaloid、喜歡的歌、節奏遊戲和架子鼓。音樂是情緒、記憶與想像力的另一種語言。</p>
+          <div class="card-items" data-i18n="musicItems">Hatsune Miku · Vocaloid · Drums · Rhythm</div>
+        </article>
+        <article class="interest-card creative-card" id="creative" data-symbol="🎨">
+          <div class="card-icon" aria-hidden="true">🎨</div>
+          <h3 data-i18n="creativeTitle">創作實驗室</h3>
+          <p data-i18n="creativeText">畫畫、網站設計、寫程式和嘗試新點子。作品不必一次完美，重要的是持續探索與創造。</p>
+          <div class="card-items" data-i18n="creativeItems">Art · Coding · Web design · Projects</div>
+        </article>
+        <article class="interest-card culture-card" data-symbol="🧭">
+          <div class="card-icon" aria-hidden="true">🧭</div>
+          <h3 data-i18n="worldTitle">世界與探索</h3>
+          <p data-i18n="worldText">對世界各地的生活方式、城市、地圖和人們如何理解世界感到好奇。</p>
+          <div class="card-items" data-i18n="worldItems">World · Cities · Maps · Ideas</div>
+        </article>
+        <article class="interest-card anime-card" data-symbol="🌸">
+          <div class="card-icon" aria-hidden="true">🌸</div>
+          <h3 data-i18n="acgTitle">ACG 與角色</h3>
+          <p data-i18n="acgText">喜歡有鮮明個性、情感與世界觀的作品，也喜歡角色和音樂帶來的靈感。</p>
+          <div class="card-items" data-i18n="acgItems">Hatsune Miku · Project SEKAI · BanG Dream!</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="games-detail-title">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker" data-i18n="gamesKicker">PRESS START</div>
+          <h2 id="games-detail-title" data-i18n="gamesDetailTitle">正在探索的遊戲世界</h2>
+        </div>
+        <p class="section-desc" data-i18n="gamesDetailDesc">這份清單可以依妳實際遊玩與喜好繼續調整。</p>
+      </div>
+      <div class="subsection">
+        <h3 data-i18n="rhythmGames">🎵 節奏與音樂遊戲</h3>
+        <div class="chip-list">
+          <span class="chip">maimai DX</span><span class="chip">Project SEKAI</span><span class="chip">Hatsune Miku: Colorful Stage!</span><span class="chip">BanG Dream!</span>
+        </div>
+      </div>
+      <div class="subsection">
+        <h3 data-i18n="worldGames">🗺️ 世界、建造與探索</h3>
+        <div class="chip-list">
+          <span class="chip">Minecraft</span><span class="chip">Cities: Skylines</span><span class="chip">Forza Horizon</span><span class="chip">Grand Theft Auto</span><span class="chip">Red Dead Redemption</span>
+        </div>
+      </div>
+      <div class="subsection">
+        <h3 data-i18n="otherGames">🕹️ 其他遊戲與策略</h3>
+        <div class="chip-list">
+          <span class="chip">Counter-Strike</span><span class="chip">Hearts of Iron IV</span><span class="chip">Blue Archive</span><span class="chip">Genshin Impact</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="music-detail-title">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker" data-i18n="musicKicker">SOUNDTRACK OF MY SEKAI</div>
+          <h2 id="music-detail-title" data-i18n="musicDetailTitle">音樂是另一種語言</h2>
+        </div>
+        <p class="section-desc" data-i18n="musicDetailDesc">這裡可以放妳喜歡的音樂類型、歌手和未來的演奏作品。</p>
+      </div>
+      <div class="music-panel">
+        <div class="music-feature">
+          <div class="big-note" aria-hidden="true">♫</div>
+          <div>
+            <h3 data-i18n="musicFeatureTitle">Miku & the sound of dreams</h3>
+            <p data-i18n="musicFeatureText">Vocaloid · rhythm · memories</p>
+          </div>
+        </div>
+        <div class="music-list">
+          <div class="music-row"><div class="music-emoji" aria-hidden="true">🎤</div><div><strong>Hatsune Miku / Vocaloid</strong><span data-i18n="musicRow1">聲音合成與虛擬歌手文化</span></div></div>
+          <div class="music-row"><div class="music-emoji" aria-hidden="true">🎹</div><div><strong>Project SEKAI</strong><span data-i18n="musicRow2">節奏、故事與角色歌曲</span></div></div>
+          <div class="music-row"><div class="music-emoji" aria-hidden="true">🥁</div><div><strong data-i18n="drumsTitle">架子鼓</strong><span data-i18n="musicRow3">把喜歡的音樂變成自己的節奏</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="quote">
+      <div class="quote-panel">
+        <div class="quote-mark" aria-hidden="true">✧</div>
+        <blockquote data-i18n="quote">我喜歡可愛的東西，也喜歡很大的問題。</blockquote>
+        <div class="quote-caption" data-i18n="quoteCaption">世界很大，先從一個「喵」開始。 ฅ(˶ᵔ ᵕ ᵔ˶)ฅ</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <strong>Nemu's Sekai 🎀</strong><br>
+      <span data-i18n="footerText">由 Nemu 用好奇心慢慢建造。</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/" target="_blank" rel="noopener noreferrer" data-i18n="githubLink">GitHub</a>
+      <a href="#top" class="back-top" data-i18n="backTop">回到頂部 ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      "zh-Hant": {
+        skip:"跳到主要內容", languageLabel:"選擇語言", menu:"選單",
+        navAbout:"關於我", navInterests:"興趣宇宙", navGames:"遊戲", navMusic:"音樂", navCreative:"創作", navQuote:"我的信念",
+        eyebrow:"✦ 一個小小的宇宙", heroCopy:"我喜歡可愛的東西，也喜歡很大的問題。<strong>語言、音樂、遊戲與世界</strong>，都是我探索宇宙的入口。",
+        exploreButton:"探索我的世界 ↓", gamesButton:"進入遊戲宇宙 ✧", floatOne:"soft dreams ✧", floatTwo:"喵 ฅ(˶ᵔ ᵕ ᵔ˶)ฅ",
+        aboutKicker:"A LITTLE INTRODUCTION", aboutTitle:"關於這個宇宙", aboutDesc:"一個持續更新的小小角落，收集好奇心、喜歡的事物和正在成長的想法。",
+        aboutText:"嗨，我是 Nemu / ねむ，也叫 Nevaline Saelina。這裡收藏我喜歡的語言、文化、ACG、遊戲、音樂與創作。世界很大，我想用自己的步調慢慢探索，並把途中遇見的星光放進這個小小的網頁。",
+        tagLanguages:"多語言", tagGames:"遊戲與音遊", tagMusic:"音樂", tagCuriosity:"好奇心",
+        interestsKicker:"MY LITTLE GALAXIES", interestsTitle:"興趣宇宙", interestsDesc:"每一種興趣都是一扇門，通往不同的世界。",
+        languagesTitle:"語言與文化", languagesText:"喜歡跨語言探索、不同文化、歷史、地理與哲學，也享受同一個想法在不同語言裡呈現出的細微差異。", languagesItems:"Language · Culture · History · Geography",
+        gamesTitle:"遊戲宇宙", gamesText:"從節奏遊戲到開放世界，喜歡探索玩法、世界觀和能讓人投入其中的故事。", gamesItems:"maimai DX · Project SEKAI · Blue Archive",
+        musicTitle:"音樂與節奏", musicText:"初音未來、Vocaloid、喜歡的歌、節奏遊戲和架子鼓。音樂是情緒、記憶與想像力的另一種語言。", musicItems:"Hatsune Miku · Vocaloid · Drums · Rhythm",
+        creativeTitle:"創作實驗室", creativeText:"畫畫、網站設計、寫程式和嘗試新點子。作品不必一次完美，重要的是持續探索與創造。", creativeItems:"Art · Coding · Web design · Projects",
+        worldTitle:"世界與探索", worldText:"對世界各地的生活方式、城市、地圖和人們如何理解世界感到好奇。", worldItems:"World · Cities · Maps · Ideas",
+        acgTitle:"ACG 與角色", acgText:"喜歡有鮮明個性、情感與世界觀的作品，也喜歡角色和音樂帶來的靈感。", acgItems:"Hatsune Miku · Project SEKAI · BanG Dream!",
+        gamesKicker:"PRESS START", gamesDetailTitle:"正在探索的遊戲世界", gamesDetailDesc:"這份清單可以依妳實際遊玩與喜好繼續調整。",
+        rhythmGames:"🎵 節奏與音樂遊戲", worldGames:"🗺️ 世界、建造與探索", otherGames:"🕹️ 其他遊戲與策略",
+        musicKicker:"SOUNDTRACK OF MY SEKAI", musicDetailTitle:"音樂是另一種語言", musicDetailDesc:"這裡可以放妳喜歡的音樂類型、歌手和未來的演奏作品。",
+        musicFeatureTitle:"Miku & the sound of dreams", musicFeatureText:"Vocaloid · rhythm · memories",
+        musicRow1:"聲音合成與虛擬歌手文化", musicRow2:"節奏、故事與角色歌曲", drumsTitle:"架子鼓", musicRow3:"把喜歡的音樂變成自己的節奏",
+        quote:"我喜歡可愛的東西，也喜歡很大的問題。", quoteCaption:"世界很大，先從一個「喵」開始。 ฅ(˶ᵔ ᵕ ᵔ˶)ฅ",
+        footerText:"由 Nemu 用好奇心慢慢建造。", githubLink:"GitHub", backTop:"回到頂部 ↑"
+      },
+      ja: {
+        skip:"メインコンテンツへ", languageLabel:"言語を選択", menu:"メニュー",
+        navAbout:"プロフィール", navInterests:"好きなこと", navGames:"ゲーム", navMusic:"音楽", navCreative:"創作", navQuote:"大切にしている言葉",
+        eyebrow:"✦ 小さな宇宙", heroCopy:"かわいいものも、大きな問いも好き。<strong>言語、音楽、ゲーム、そして世界</strong>は、宇宙を探検するための入り口。",
+        exploreButton:"世界を探検する ↓", gamesButton:"ゲームの宇宙へ ✧", floatOne:"soft dreams ✧", floatTwo:"にゃ ฅ(˶ᵔ ᵕ ᵔ˶)ฅ",
+        aboutKicker:"A LITTLE INTRODUCTION", aboutTitle:"この宇宙について", aboutDesc:"好奇心や好きなもの、育ちつつあるアイデアを集める、小さな更新中の場所。",
+        aboutText:"こんにちは、Nemu / ねむです。Nevaline Saelinaとも呼ばれています。ここには、好きな言語や文化、ACG、ゲーム、音楽、創作を集めています。自分のペースで世界を探検し、旅の途中で見つけた星の光をこの小さなウェブページに残していきます。",
+        tagLanguages:"多言語", tagGames:"ゲーム・音ゲー", tagMusic:"音楽", tagCuriosity:"好奇心",
+        interestsKicker:"MY LITTLE GALAXIES", interestsTitle:"好きなことの宇宙", interestsDesc:"好きなことはそれぞれ、別の世界へ続く扉。",
+        languagesTitle:"言語と文化", languagesText:"さまざまな言語や文化、歴史、地理、哲学を探るのが好き。同じ考えが言語によって少しずつ違って見えるところも面白い。", languagesItems:"Language · Culture · History · Geography",
+        gamesTitle:"ゲームの宇宙", gamesText:"リズムゲームからオープンワールドまで、ゲーム性や世界観、夢中になれる物語を探検する。", gamesItems:"maimai DX · Project SEKAI · Blue Archive",
+        musicTitle:"音楽とリズム", musicText:"初音ミク、Vocaloid、お気に入りの曲、音楽ゲーム、ドラム。音楽は感情や記憶、想像力を伝えるもう一つの言語。", musicItems:"Hatsune Miku · Vocaloid · Drums · Rhythm",
+        creativeTitle:"クリエイティブラボ", creativeText:"絵、ウェブデザイン、コーディング、新しいアイデア。最初から完璧でなくてもいい。探求し、作り続けることが大切。", creativeItems:"Art · Coding · Web design · Projects",
+        worldTitle:"世界と探検", worldText:"世界各地の暮らし、都市、地図、人々が世界をどう理解するかに興味がある。", worldItems:"World · Cities · Maps · Ideas",
+        acgTitle:"ACGとキャラクター", acgText:"個性や感情、世界観のある作品が好き。キャラクターや音楽からもインスピレーションをもらう。", acgItems:"Hatsune Miku · Project SEKAI · BanG Dream!",
+        gamesKicker:"PRESS START", gamesDetailTitle:"探検中のゲーム世界", gamesDetailDesc:"実際に遊んでいる作品や好みに合わせて、リストを更新していけます。",
+        rhythmGames:"🎵 リズム・音楽ゲーム", worldGames:"🗺️ 世界・建築・探索", otherGames:"🕹️ その他のゲーム・戦略",
+        musicKicker:"SOUNDTRACK OF MY SEKAI", musicDetailTitle:"音楽はもう一つの言語", musicDetailDesc:"好きな音楽ジャンル、アーティスト、これからの演奏作品を紹介する場所。",
+        musicFeatureTitle:"Miku & the sound of dreams", musicFeatureText:"Vocaloid · rhythm · memories",
+        musicRow1:"音声合成とバーチャルシンガー文化", musicRow2:"リズム、物語、キャラクターソング", drumsTitle:"ドラム", musicRow3:"好きな音楽を自分のリズムに変える",
+        quote:"かわいいものも、大きな問いも好き。", quoteCaption:"世界は広い。まずはひとつの「にゃ」から。 ฅ(˶ᵔ ᵕ ᵔ˶)ฅ",
+        footerText:"Nemuが好奇心とともに少しずつ作っています。", githubLink:"GitHub", backTop:"トップへ ↑"
+      },
+      en: {
+        skip:"Skip to main content", languageLabel:"Choose language", menu:"Menu",
+        navAbout:"About", navInterests:"Interests", navGames:"Games", navMusic:"Music", navCreative:"Creative Lab", navQuote:"A little motto",
+        eyebrow:"✦ A little universe", heroCopy:"I love cute things, and I love big questions. <strong>Languages, music, games, and the world</strong> are all doorways into my universe.",
+        exploreButton:"Explore my world ↓", gamesButton:"Enter the game universe ✧", floatOne:"soft dreams ✧", floatTwo:"meow ฅ(˶ᵔ ᵕ ᵔ˶)ฅ",
+        aboutKicker:"A LITTLE INTRODUCTION", aboutTitle:"About this universe", aboutDesc:"A small, ever-growing corner for curiosity, favorite things, and ideas still taking shape.",
+        aboutText:"Hi, I'm Nemu / ねむ, also known as Nevaline Saelina. This is where I collect the languages, cultures, ACG, games, music, and creative projects I love. The world is vast, and I want to explore it at my own pace, leaving little pieces of starlight here along the way.",
+        tagLanguages:"Languages", tagGames:"Games & rhythm games", tagMusic:"Music", tagCuriosity:"Curiosity",
+        interestsKicker:"MY LITTLE GALAXIES", interestsTitle:"My little galaxies", interestsDesc:"Every interest is a door to a different world.",
+        languagesTitle:"Languages & Culture", languagesText:"I enjoy exploring languages, cultures, history, geography, and philosophy—and noticing how the same idea can feel subtly different across languages.", languagesItems:"Language · Culture · History · Geography",
+        gamesTitle:"Game Universe", gamesText:"From rhythm games to open worlds, I love exploring mechanics, lore, and stories that draw you in.", gamesItems:"maimai DX · Project SEKAI · Blue Archive",
+        musicTitle:"Music & Rhythm", musicText:"Hatsune Miku, Vocaloid, favorite songs, rhythm games, and drums. Music is another language for emotion, memory, and imagination.", musicItems:"Hatsune Miku · Vocaloid · Drums · Rhythm",
+        creativeTitle:"Creative Lab", creativeText:"Drawing, web design, coding, and trying new ideas. A project doesn't have to be perfect on the first try—keep exploring and creating.", creativeItems:"Art · Coding · Web design · Projects",
+        worldTitle:"World & Discovery", worldText:"Curious about how people live around the world, cities, maps, and the many ways people understand our world.", worldItems:"World · Cities · Maps · Ideas",
+        acgTitle:"ACG & Characters", acgText:"I love stories with distinct personalities, emotions, and worlds—and the inspiration that characters and music can bring.", acgItems:"Hatsune Miku · Project SEKAI · BanG Dream!",
+        gamesKicker:"PRESS START", gamesDetailTitle:"Worlds I'm exploring", gamesDetailDesc:"This list can grow and change with the games you actually play and love.",
+        rhythmGames:"🎵 Rhythm & Music Games", worldGames:"🗺️ Worlds, Building & Exploration", otherGames:"🕹️ More Games & Strategy",
+        musicKicker:"SOUNDTRACK OF MY SEKAI", musicDetailTitle:"Music is another language", musicDetailDesc:"A space for favorite genres, artists, and future performance projects.",
+        musicFeatureTitle:"Miku & the sound of dreams", musicFeatureText:"Vocaloid · rhythm · memories",
+        musicRow1:"Synth voices and virtual singer culture", musicRow2:"Rhythm, stories, and character songs", drumsTitle:"Drums", musicRow3:"Turning the music I love into my own rhythm",
+        quote:"I love cute things, and I love big questions.", quoteCaption:"The world is vast. Let's start with one little meow. ฅ(˶ᵔ ᵕ ᵔ˶)ฅ",
+        footerText:"Slowly built by Nemu, powered by curiosity.", githubLink:"GitHub", backTop:"Back to top ↑"
+      },
+      fr: {
+        skip:"Aller au contenu principal", languageLabel:"Choisir la langue", menu:"Menu",
+        navAbout:"À propos", navInterests:"Mes centres d’intérêt", navGames:"Jeux", navMusic:"Musique", navCreative:"Création", navQuote:"Ma petite devise",
+        eyebrow:"✦ Un petit univers", heroCopy:"J’aime les choses mignonnes et les grandes questions. <strong>Les langues, la musique, les jeux et le monde</strong> sont autant de portes vers mon univers.",
+        exploreButton:"Explorer mon univers ↓", gamesButton:"Entrer dans l’univers des jeux ✧", floatOne:"soft dreams ✧", floatTwo:"miaou ฅ(˶ᵔ ᵕ ᵔ˶)ฅ",
+        aboutKicker:"UNE PETITE PRÉSENTATION", aboutTitle:"À propos de cet univers", aboutDesc:"Un petit espace en évolution, rempli de curiosité, de choses aimées et d’idées en devenir.",
+        aboutText:"Salut, je suis Nemu / ねむ, aussi connue sous le nom de Nevaline Saelina. Ici, je rassemble les langues, les cultures, l’ACG, les jeux, la musique et les créations que j’aime. Le monde est immense : je veux l’explorer à mon rythme et garder ici quelques étoiles rencontrées en chemin.",
+        tagLanguages:"Langues", tagGames:"Jeux et jeux de rythme", tagMusic:"Musique", tagCuriosity:"Curiosité",
+        interestsKicker:"MES PETITES GALAXIES", interestsTitle:"Mes petites galaxies", interestsDesc:"Chaque passion est une porte vers un monde différent.",
+        languagesTitle:"Langues et cultures", languagesText:"J’aime explorer les langues, les cultures, l’histoire, la géographie et la philosophie, et découvrir les nuances d’une même idée d’une langue à l’autre.", languagesItems:"Langues · Culture · Histoire · Géographie",
+        gamesTitle:"Univers des jeux", gamesText:"Des jeux de rythme aux mondes ouverts, j’aime explorer les mécaniques, les univers et les histoires captivantes.", gamesItems:"maimai DX · Project SEKAI · Blue Archive",
+        musicTitle:"Musique et rythme", musicText:"Hatsune Miku, Vocaloid, mes chansons préférées, les jeux de rythme et la batterie. La musique est une autre langue pour les émotions, les souvenirs et l’imagination.", musicItems:"Hatsune Miku · Vocaloid · Batterie · Rythme",
+        creativeTitle:"Atelier créatif", creativeText:"Dessin, conception web, programmation et nouvelles idées. Un projet n’a pas besoin d’être parfait dès le début : l’important est de continuer à explorer et créer.", creativeItems:"Art · Code · Web · Projets",
+        worldTitle:"Monde et découvertes", worldText:"Je m’intéresse aux modes de vie, aux villes, aux cartes et aux différentes façons de comprendre le monde.", worldItems:"Monde · Villes · Cartes · Idées",
+        acgTitle:"ACG et personnages", acgText:"J’aime les œuvres aux personnalités, aux émotions et aux univers marqués, ainsi que l’inspiration offerte par les personnages et la musique.", acgItems:"Hatsune Miku · Project SEKAI · BanG Dream!",
+        gamesKicker:"PRESS START", gamesDetailTitle:"Les mondes que j’explore", gamesDetailDesc:"Cette liste peut évoluer selon les jeux auxquels tu joues et ceux que tu aimes.",
+        rhythmGames:"🎵 Jeux de rythme et de musique", worldGames:"🗺️ Mondes, construction et exploration", otherGames:"🕹️ Autres jeux et stratégie",
+        musicKicker:"LA BANDE-SON DE MON SEKAI", musicDetailTitle:"La musique est une autre langue", musicDetailDesc:"Un espace pour les genres, les artistes préférés et les futurs projets musicaux.",
+        musicFeatureTitle:"Miku & le son des rêves", musicFeatureText:"Vocaloid · rythme · souvenirs",
+        musicRow1:"Synthèse vocale et culture des chanteurs virtuels", musicRow2:"Rythme, histoires et chansons de personnages", drumsTitle:"Batterie", musicRow3:"Transformer la musique aimée en son propre rythme",
+        quote:"J’aime les choses mignonnes et les grandes questions.", quoteCaption:"Le monde est immense. Commençons par un petit « miaou ». ฅ(˶ᵔ ᵕ ᵔ˶)ฅ",
+        footerText:"Construit petit à petit par Nemu, avec curiosité.", githubLink:"GitHub", backTop:"Retour en haut ↑"
+      },
+      de: {
+        skip:"Zum Hauptinhalt springen", languageLabel:"Sprache auswählen", menu:"Menü",
+        navAbout:"Über mich", navInterests:"Interessen", navGames:"Spiele", navMusic:"Musik", navCreative:"Kreativwerkstatt", navQuote:"Mein Motto",
+        eyebrow:"✦ Ein kleines Universum", heroCopy:"Ich mag niedliche Dinge und große Fragen. <strong>Sprachen, Musik, Spiele und die Welt</strong> sind Türen in mein Universum.",
+        exploreButton:"Meine Welt entdecken ↓", gamesButton:"Zum Spieleuniversum ✧", floatOne:"soft dreams ✧", floatTwo:"miau ฅ(˶ᵔ ᵕ ᵔ˶)ฅ",
+        aboutKicker:"EINE KLEINE VORSTELLUNG", aboutTitle:"Über dieses Universum", aboutDesc:"Ein kleiner, wachsender Ort voller Neugier, Lieblingsdinge und Ideen, die sich noch entwickeln.",
+        aboutText:"Hallo, ich bin Nemu / ねむ, auch bekannt als Nevaline Saelina. Hier sammle ich Sprachen, Kulturen, ACG, Spiele, Musik und kreative Projekte, die ich mag. Die Welt ist groß, und ich möchte sie in meinem eigenen Tempo entdecken und unterwegs gefundene Sternenlichter hier bewahren.",
+        tagLanguages:"Sprachen", tagGames:"Spiele & Rhythmusspiele", tagMusic:"Musik", tagCuriosity:"Neugier",
+        interestsKicker:"MEINE KLEINEN GALAXIEN", interestsTitle:"Meine kleinen Galaxien", interestsDesc:"Jedes Interesse ist eine Tür zu einer anderen Welt.",
+        languagesTitle:"Sprachen & Kultur", languagesText:"Ich erkunde gern Sprachen, Kulturen, Geschichte, Geografie und Philosophie – und entdecke, wie sich derselbe Gedanke in verschiedenen Sprachen leicht anders anfühlen kann.", languagesItems:"Sprache · Kultur · Geschichte · Geografie",
+        gamesTitle:"Spieleuniversum", gamesText:"Von Rhythmusspielen bis zu offenen Welten: Ich erkunde gern Spielmechaniken, Hintergrundgeschichten und fesselnde Erzählungen.", gamesItems:"maimai DX · Project SEKAI · Blue Archive",
+        musicTitle:"Musik & Rhythmus", musicText:"Hatsune Miku, Vocaloid, Lieblingslieder, Rhythmusspiele und Schlagzeug. Musik ist eine weitere Sprache für Gefühle, Erinnerungen und Fantasie.", musicItems:"Hatsune Miku · Vocaloid · Schlagzeug · Rhythmus",
+        creativeTitle:"Kreativwerkstatt", creativeText:"Zeichnen, Webdesign, Programmieren und neue Ideen ausprobieren. Ein Projekt muss nicht sofort perfekt sein – wichtig ist, weiter zu entdecken und zu gestalten.", creativeItems:"Kunst · Coding · Webdesign · Projekte",
+        worldTitle:"Welt & Entdeckungen", worldText:"Ich interessiere mich für Lebensweisen auf der Welt, Städte, Karten und die unterschiedlichen Arten, die Welt zu verstehen.", worldItems:"Welt · Städte · Karten · Ideen",
+        acgTitle:"ACG & Figuren", acgText:"Ich mag Werke mit eigenständigen Persönlichkeiten, Emotionen und Welten – und die Inspiration, die Figuren und Musik geben können.", acgItems:"Hatsune Miku · Project SEKAI · BanG Dream!",
+        gamesKicker:"PRESS START", gamesDetailTitle:"Welten, die ich erkunde", gamesDetailDesc:"Diese Liste kann mit den Spielen wachsen, die du tatsächlich spielst und magst.",
+        rhythmGames:"🎵 Rhythmus- & Musikspiele", worldGames:"🗺️ Welten, Bauen & Erkunden", otherGames:"🕹️ Weitere Spiele & Strategie",
+        musicKicker:"DER SOUNDTRACK MEINES SEKAI", musicDetailTitle:"Musik ist eine weitere Sprache", musicDetailDesc:"Ein Ort für Lieblingsgenres, Künstler*innen und zukünftige Musikprojekte.",
+        musicFeatureTitle:"Miku & der Klang der Träume", musicFeatureText:"Vocaloid · Rhythmus · Erinnerungen",
+        musicRow1:"Synthesestimmen und virtuelle Sänger*innen", musicRow2:"Rhythmus, Geschichten und Figurenlieder", drumsTitle:"Schlagzeug", musicRow3:"Lieblingsmusik in den eigenen Rhythmus verwandeln",
+        quote:"Ich mag niedliche Dinge und große Fragen.", quoteCaption:"Die Welt ist groß. Fangen wir mit einem kleinen „Miau“ an. ฅ(˶ᵔ ᵕ ᵔ˶)ฅ",
+        footerText:"Von Nemu mit Neugier Schritt für Schritt gestaltet.", githubLink:"GitHub", backTop:"Nach oben ↑"
+      }
+    };
+
+    const languageSelect = document.getElementById("language-select");
+    const menuToggle = document.getElementById("menu-toggle");
+    const nav = document.getElementById("site-nav");
+
+    function setLanguage(language) {
+      const dictionary = translations[language] || translations["zh-Hant"];
+      document.documentElement.lang = language;
+      document.title = {
+        "zh-Hant": "Nemu's Sekai · Nevaline Saelina",
+        ja: "Nemu's Sekai · Nevaline Saelina",
+        en: "Nemu's Sekai · Nevaline Saelina",
+        fr: "Nemu's Sekai · Nevaline Saelina",
+        de: "Nemu's Sekai · Nevaline Saelina"
+      }[language];
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.dataset.i18n;
+        if (Object.prototype.hasOwnProperty.call(dictionary, key)) {
+          // A small number of hero descriptions intentionally include a bold phrase.
+          if (key === "heroCopy") element.innerHTML = dictionary[key];
+          else element.textContent = dictionary[key];
+        }
+      });
+      languageSelect.value = language;
+      try { localStorage.setItem("nemu-language", language); } catch (_) {}
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        if (element.tagName === "A" && element.closest(".nav")) {
+          element.setAttribute("aria-label", element.textContent.trim());
+        }
+      });
+    }
+
+    languageSelect.addEventListener("change", (event) => setLanguage(event.target.value));
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("is-open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("is-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    let initialLanguage = "zh-Hant";
+    try {
+      const savedLanguage = localStorage.getItem("nemu-language");
+      if (savedLanguage && Object.prototype.hasOwnProperty.call(translations, savedLanguage)) {
+        initialLanguage = savedLanguage;
+      }
+    } catch (_) {}
+    setLanguage(initialLanguage);
+  </script>
+  <style>
+    .visually-hidden {
+      position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+  </style>
+</body>
+</html>
